@@ -21,7 +21,7 @@ theme = st.sidebar.radio("Pilih Tema Aplikasi:", ('Light', 'Dark'), key='theme')
 def get_themed_css(theme):
     """
     Generates CSS styles based on the selected theme (Light/Dark).
-    Fixes visibility for metric cards and inactive tabs.
+    Fixes visibility for metric cards, inactive tabs, and alert boxes.
     """
     if theme == 'Dark':
         # --- DARK MODE CSS ---
@@ -54,6 +54,11 @@ def get_themed_css(theme):
                 background-color: #262730; border: 2px solid #3c4049; border-radius: 8px;
                 padding: 1rem; margin: 1rem 0; font-family: 'Courier New', monospace;
                 font-size: 1.1rem; color: #FAFAFA;
+            }
+            /* Custom Alert Boxes for better contrast */
+            .success-box {
+                background-color: #1c3d25; border: 1px solid #2a5a38; border-radius: 8px;
+                padding: 1rem; margin: 1rem 0; color: #a3e9b6;
             }
             .warning-box {
                 background-color: #4d3800; border: 1px solid #997404; border-radius: 8px;
@@ -98,6 +103,11 @@ def get_themed_css(theme):
                 background-color: #f8f9fa; border: 2px solid #dee2e6; border-radius: 8px;
                 padding: 1rem; margin: 1rem 0; font-family: 'Courier New', monospace;
                 font-size: 1.1rem; color: #333;
+            }
+            /* Custom Alert Boxes for better contrast */
+            .success-box {
+                background-color: #d4edda; border: 1px solid #c3e6cb; border-radius: 8px;
+                padding: 1rem; margin: 1rem 0; color: #155724; /* Dark green text */
             }
             .warning-box {
                 background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 8px;
@@ -175,7 +185,6 @@ else: # Default values if inputs are invalid
 
 
 with tab1:
-    # Restored two-column layout with detailed calculations
     col1, col2 = st.columns(2)
 
     with col1:
@@ -184,7 +193,7 @@ with tab1:
         st.markdown('<div class="formula-box">📦 <strong>Ukuran Pesanan Optimal (Q*)</strong><br>Q* = √(2DA/h)<br>Q* = √(2×{}×{}/{}) = <strong>{:.2f} unit</strong></div>'.format(D, A, h, Q_optimal), unsafe_allow_html=True)
         st.markdown('<div class="formula-box">⏰ <strong>Siklus Waktu Optimal (T)</strong><br>T = Q/D<br>T = {:.2f}/{} = <strong>{:.4f} tahun</strong></div>'.format(Q_optimal, D, T_optimal), unsafe_allow_html=True)
         if condition_met:
-            st.markdown('<div class="info-box">✅ <strong>Kondisi L < T Terpenuhi</strong><br>L ({:.4f}) < T ({:.4f})<br>Model dapat digunakan dengan aman.</div>'.format(L, T_optimal), unsafe_allow_html=True)
+            st.markdown('<div class="info-box">✅ <strong>Kondisi L &lt; T Terpenuhi</strong><br>L ({:.4f}) &lt; T ({:.4f})<br>Model dapat digunakan dengan aman.</div>'.format(L, T_optimal), unsafe_allow_html=True)
         else:
             st.markdown('<div class="warning-box">⚠️ <strong>Kondisi L ≥ T</strong><br>L ({:.4f}) ≥ T ({:.4f})<br>Perlu pertimbangan Safety Stock!</div>'.format(L, T_optimal), unsafe_allow_html=True)
 
@@ -237,9 +246,7 @@ with tab3:
     if show_sensitivity:
         st.markdown('<div class="sub-header">🔍 Analisis Sensitivitas</div>', unsafe_allow_html=True)
         st.write("Analisis ini menunjukkan bagaimana Ukuran Pesanan Optimal (Q*) dan Total Ongkos (OT) berubah ketika salah satu parameter input diubah.")
-        
-        param_choice = st.selectbox("Pilih parameter untuk dianalisis:", 
-                                      ["Permintaan (D)", "Ongkos Pemesanan (A)", "Ongkos Penyimpanan (h)"])
+        param_choice = st.selectbox("Pilih parameter untuk dianalisis:", ["Permintaan (D)", "Ongkos Pemesanan (A)", "Ongkos Penyimpanan (h)"])
 
         if param_choice == "Permintaan (D)":
             D_range = np.linspace(D * 0.5, D * 2, 20)
@@ -247,15 +254,13 @@ with tab3:
             OT_sens = [d * C + (d / q) * A + (q / 2) * h for d, q in zip(D_range, Q_sens)]
             x_label, title_q, title_ot = "Permintaan (D)", "Q* vs Permintaan", "Total Cost vs Permintaan"
             x_range = D_range
-        
         elif param_choice == "Ongkos Pemesanan (A)":
             A_range = np.linspace(A * 0.5, A * 2, 20)
             Q_sens = [math.sqrt((2 * D * a) / h) for a in A_range]
             OT_sens = [D * C + (D / q) * a + (q / 2) * h for a, q in zip(A_range, Q_sens)]
             x_label, title_q, title_ot = "Ongkos Pemesanan (A)", "Q* vs Ongkos Pemesanan", "Total Cost vs Ongkos Pemesanan"
             x_range = A_range
-            
-        else:  # Ongkos Penyimpanan (h)
+        else:
             h_range = np.linspace(h * 0.5, h * 2, 20)
             Q_sens = [math.sqrt((2 * D * A) / h_val) for h_val in h_range]
             OT_sens = [D * C + (D / q) * A + (q / 2) * h_val for h_val, q in zip(h_range, Q_sens)]
@@ -269,10 +274,8 @@ with tab3:
         fig_sens.update_xaxes(title_text=x_label, row=1, col=2)
         fig_sens.update_yaxes(title_text="Q* Optimal (unit)", row=1, col=1)
         fig_sens.update_yaxes(title_text="Total Ongkos (Rp)", row=1, col=2)
-        
         fig_sens.update_layout(height=400, title_text=f"Analisis Sensitivitas Terhadap {param_choice}", template=plotly_template, showlegend=False)
         st.plotly_chart(fig_sens, use_container_width=True)
-
     else:
         st.info("Centang 'Tampilkan Analisis Sensitivitas' di sidebar untuk melihat konten tab ini.")
 
@@ -290,7 +293,6 @@ with tab4:
             }
             df_params = pd.DataFrame(comparison_data)
             st.dataframe(df_params.set_index('Parameter'), use_container_width=True)
-            
         with col2:
             st.subheader("📈 Hasil Perhitungan")
             hasil_data = {
@@ -306,31 +308,42 @@ with tab4:
             st.dataframe(df_results.set_index('Metrik'), use_container_width=True)
             
         st.markdown('<div class="sub-header">💡 Interpretasi dan Rekomendasi</div>', unsafe_allow_html=True)
+        
+        # FIXED: Using custom classes instead of st.success and st.warning
         if condition_met:
-            st.success(f"""
-            ✅ **Model Valid**: Kondisi L < T terpenuhi ({L:.4f} < {T_optimal:.4f}).
-            
-            📋 **Rekomendasi Operasional**:
-            - Pesan sebanyak **{Q_optimal:.0f} unit** setiap kali pemesanan.
-            - Lakukan pemesanan ketika stok mencapai **{R:.0f} unit** (Reorder Point).
-            - Frekuensi pemesanan: **{frequency:.1f} kali per tahun** (setiap **{365/frequency:.0f} hari**).
-            - Total biaya tahunan yang diharapkan: **Rp {OT_optimal:,.0f}**.
-            """)
+            success_message = f"""
+            <div class="success-box">
+                ✅ <strong>Model Valid:</strong> Kondisi L &lt; T terpenuhi ({L:.4f} &lt; {T_optimal:.4f}).
+                <br><br>
+                📋 <strong>Rekomendasi Operasional:</strong>
+                <ul>
+                    <li>Pesan sebanyak <strong>{Q_optimal:.0f} unit</strong> setiap kali pemesanan.</li>
+                    <li>Lakukan pemesanan ketika stok mencapai <strong>{R:.0f} unit</strong> (Reorder Point).</li>
+                    <li>Frekuensi pemesanan: <strong>{frequency:.1f} kali per tahun</strong> (setiap <strong>{365/frequency if frequency > 0 else 0:.0f} hari</strong>).</li>
+                    <li>Total biaya tahunan yang diharapkan: <strong>Rp {OT_optimal:,.0f}</strong>.</li>
+                </ul>
+            </div>
+            """
+            st.markdown(success_message, unsafe_allow_html=True)
         else:
-            st.warning(f"""
-            ⚠️ **Perhatian**: Lead Time ({L:.4f} tahun) ≥ Siklus Waktu ({T_optimal:.4f} tahun).
-            
-            🛡️ **Rekomendasi**:
-            - Pertimbangkan menambah Safety Stock untuk menghindari kehabisan stok.
-            - Evaluasi supplier untuk mencoba mengurangi Lead Time.
-            - Monitor tingkat layanan dan risiko stockout dengan lebih ketat.
-            """)
+            warning_message = f"""
+            <div class="warning-box">
+                ⚠️ <strong>Perhatian:</strong> Lead Time ({L:.4f} tahun) ≥ Siklus Waktu ({T_optimal:.4f} tahun).
+                <br><br>
+                🛡️ <strong>Rekomendasi:</strong>
+                <ul>
+                    <li>Pertimbangkan menambah <strong>Safety Stock</strong> untuk menghindari kehabisan stok.</li>
+                    <li>Evaluasi supplier untuk mencoba mengurangi Lead Time.</li>
+                    <li>Monitor tingkat layanan dan risiko stockout dengan lebih ketat.</li>
+                </ul>
+            </div>
+            """
+            st.markdown(warning_message, unsafe_allow_html=True)
     else:
         st.info("Centang 'Tampilkan Perbandingan Model' di sidebar untuk melihat konten tab ini.")
         
 with tab5:
     st.markdown('<div class="sub-header">📖 Panduan Penggunaan & Analisis Teori</div>', unsafe_allow_html=True)
-
     with st.expander("▶️ **Cara Penggunaan Aplikasi (Tutorial)**", expanded=True):
         st.markdown("""
         Aplikasi ini dirancang untuk menghitung ukuran pemesanan optimal dan biaya terkait dalam manajemen persediaan menggunakan model Economic Order Quantity (EOQ).
@@ -356,11 +369,8 @@ with tab5:
         Ya, aplikasi ini **sudah sangat sesuai** dengan teori manajemen persediaan, khususnya model **Economic Order Quantity (EOQ)**.
 
         1.  **Formula EOQ (Q\*)**: Perhitungan `Ukuran Pesanan Optimal (Q)` menggunakan formula standar EOQ: $Q^* = \\sqrt{\\frac{2DA}{h}}$. Ini adalah inti dari model yang bertujuan menyeimbangkan biaya pemesanan dan biaya penyimpanan.
-
         2.  **Keseimbangan Biaya**: Teori EOQ menyatakan bahwa titik optimal (biaya terendah) tercapai ketika total biaya pemesanan tahunan sama dengan total biaya penyimpanan tahunan. Anda bisa melihat ini pada **Tab Analisis Grafik**, di mana kurva `Ongkos Pemesanan (OP)` dan `Ongkos Penyimpanan (OS)` berpotongan tepat di titik Q* optimal.
-
         3.  **Reorder Point (R)**: Perhitungan $R = D \\times L$ adalah formula standar untuk menentukan titik pemesanan kembali dalam kondisi permintaan yang konstan dan diketahui, yang merupakan asumsi dasar model EOQ.
-
         4.  **Peringatan (L < T)**: Aplikasi ini memberikan analisis tambahan yang cerdas dengan memeriksa apakah `Lead Time (L)` lebih kecil dari `Siklus Waktu (T)`. Jika L ≥ T, artinya pesanan berikutnya belum akan datang saat persediaan sudah habis. Peringatan untuk mempertimbangkan **Safety Stock** ini adalah penerapan praktis yang sangat baik dari teori untuk kondisi dunia nyata.
 
         **Kesimpulan**: Aplikasi ini adalah alat analisis yang mengimplementasikan model EOQ secara akurat dan memberikan interpretasi yang relevan secara manajerial.
@@ -369,4 +379,4 @@ with tab5:
 
 # Footer
 st.markdown("---")
-st.markdown("<div style='text-align: center; color: #888; font-size: 0.9rem;'>📦 Supply Chain Management - Pengukuran Ongkos | Dibuat dengan Streamlit</div>", unsafe_allow_html=True)
+st.markdown("<div style='text-align: center; color: #888; font-size: 0.9rem;'>📦 Supply Chain Management - Pengukuran Ongkos | Kelompok 1 | Dibuat dengan Streamlit</div>", unsafe_allow_html=True)
