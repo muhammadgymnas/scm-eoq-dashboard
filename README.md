@@ -19,7 +19,7 @@ Anda bisa mencoba aplikasi ini secara langsung melalui link berikut:
 
 | Mode Terang (Light Mode) | Mode Gelap (Dark Mode) |
 | :---: | :---: |
-| ![Light Mode Screenshot](https://ibb.co/ynLjMhtK) | ![Dark Mode Screenshot](https://ibb.co/fd0vLVC5) |
+| ![Light Mode Screenshot](https://ibb.co/fd0vLVC5) | ![Dark Mode Screenshot](https://ibb.co/ynLjMhtK) |
 
 ---
 
