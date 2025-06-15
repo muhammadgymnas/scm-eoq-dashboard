@@ -11,7 +11,7 @@ Aplikasi web interaktif yang dibangun menggunakan **Streamlit** untuk menganalis
 
 Anda bisa mencoba aplikasi ini secara langsung melalui link berikut:
 
-**[➡️ Buka Aplikasi EOQ Dashboard]([https://scm-eoq-dashboard.streamlit.app/])**
+**[➡️ Buka Aplikasi EOQ Dashboard](https://scm-eoq-dashboard.streamlit.app/)**
 
 ---
 
@@ -19,7 +19,7 @@ Anda bisa mencoba aplikasi ini secara langsung melalui link berikut:
 
 | Mode Terang (Light Mode) | Mode Gelap (Dark Mode) |
 | :---: | :---: |
-| ![Light Mode Screenshot]([https://ibb.co/ynLjMhtK]) | ![Dark Mode Screenshot]([https://ibb.co/fd0vLVC5]) |
+| ![Light Mode Screenshot](https://ibb.co/ynLjMhtK) | ![Dark Mode Screenshot](https://ibb.co/fd0vLVC5) |
 
 ---
 
@@ -57,7 +57,7 @@ Jika Anda ingin menjalankan aplikasi ini di komputer Anda sendiri, ikuti langkah
 
 **2. Clone Repositori**
 ```bash
-git clone [https://github.com/muhammadgymnas/scm-eoq-dashboard.git](https://github.com/muhammadgymnas/scm-eoq-dashboard.git)
+git clone https://github.com/muhammadgymnas/scm-eoq-dashboard.git
 cd nama-repository
 
 3. Buat File requirements.txt
