@@ -19,7 +19,7 @@ Anda bisa mencoba aplikasi ini secara langsung melalui link berikut:
 
 | Mode Terang (Light Mode) | Mode Gelap (Dark Mode) |
 | :---: | :---: |
-| ![Light Mode Screenshot](https://ibb.co/fd0vLVC5) | ![Dark Mode Screenshot](https://ibb.co/ynLjMhtK) |
+| ![Light Mode Screenshot](https://i.ibb.co/C5xGXJg4/SCM-EOQ-Streamlit-App-Light-Mode.jpg) | ![Dark Mode Screenshot](https://i.ibb.co/1G26jY95/SCM-EOQ-Streamlit-App-Dark-Mode.jpg) |
 
 ---
 
