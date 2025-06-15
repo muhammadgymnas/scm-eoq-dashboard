@@ -11,7 +11,7 @@ Aplikasi web interaktif yang dibangun menggunakan **Streamlit** untuk menganalis
 
 Anda bisa mencoba aplikasi ini secara langsung melalui link berikut:
 
-**[➡️ Buka Aplikasi EOQ Dashboard]([https://your-app-link.streamlit.app/](https://scm-eoq-dashboard.streamlit.app/))**
+**[➡️ Buka Aplikasi EOQ Dashboard]([https://scm-eoq-dashboard.streamlit.app/])**
 
 ---
 
@@ -19,7 +19,7 @@ Anda bisa mencoba aplikasi ini secara langsung melalui link berikut:
 
 | Mode Terang (Light Mode) | Mode Gelap (Dark Mode) |
 | :---: | :---: |
-| ![Light Mode Screenshot]([https://i.imgur.com/link-gambar-light-mode.png](https://ibb.co/ynLjMhtK)) | ![Dark Mode Screenshot]([https://i.imgur.com/link-gambar-dark-mode.png](https://ibb.co/fd0vLVC5)) |
+| ![Light Mode Screenshot]([https://ibb.co/ynLjMhtK]) | ![Dark Mode Screenshot]([https://ibb.co/fd0vLVC5]) |
 
 ---
 
