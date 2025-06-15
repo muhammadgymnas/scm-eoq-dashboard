@@ -7,13 +7,11 @@ Aplikasi web interaktif yang dibangun menggunakan **Streamlit** untuk menganalis
 
 ---
 
-###  डेमो Aplikasi Langsung
+### Aplikasi Langsung
 
 Anda bisa mencoba aplikasi ini secara langsung melalui link berikut:
 
-**[➡️ Buka Aplikasi EOQ Dashboard](https://your-app-link.streamlit.app/)**
-
-*(**Catatan**: Ganti `https://your-app-link.streamlit.app/` dengan link aplikasi Anda yang sudah di-deploy)*
+**[➡️ Buka Aplikasi EOQ Dashboard]([https://your-app-link.streamlit.app/](https://scm-eoq-dashboard.streamlit.app/))**
 
 ---
 
@@ -21,9 +19,7 @@ Anda bisa mencoba aplikasi ini secara langsung melalui link berikut:
 
 | Mode Terang (Light Mode) | Mode Gelap (Dark Mode) |
 | :---: | :---: |
-| ![Light Mode Screenshot](https://i.imgur.com/link-gambar-light-mode.png) | ![Dark Mode Screenshot](https://i.imgur.com/link-gambar-dark-mode.png) |
-
-*(**Catatan**: Ganti link di atas dengan URL screenshot aplikasi Anda. Anda bisa mengunggah gambar ke situs seperti [Imgur](https://imgur.com/) untuk mendapatkan link.)*
+| ![Light Mode Screenshot]([https://i.imgur.com/link-gambar-light-mode.png](https://ibb.co/ynLjMhtK)) | ![Dark Mode Screenshot]([https://i.imgur.com/link-gambar-dark-mode.png](https://ibb.co/fd0vLVC5)) |
 
 ---
 
@@ -61,10 +57,8 @@ Jika Anda ingin menjalankan aplikasi ini di komputer Anda sendiri, ikuti langkah
 
 **2. Clone Repositori**
 ```bash
-git clone [https://github.com/username/nama-repository.git](https://github.com/username/nama-repository.git)
+git clone [https://github.com/muhammadgymnas/scm-eoq-dashboard.git](https://github.com/muhammadgymnas/scm-eoq-dashboard.git)
 cd nama-repository
-
-(Catatan: Ganti username/nama-repository dengan URL repo Anda)
 
 3. Buat File requirements.txt
 Buat sebuah file bernama requirements.txt di dalam folder proyek Anda dan isi dengan library berikut:
@@ -82,8 +76,6 @@ pip install -r requirements.txt
 5. Jalankan Aplikasi Streamlit
 Setelah instalasi selesai, jalankan aplikasi dengan perintah:
 
-streamlit run nama_file_aplikasi.py
-
-(Catatan: Ganti nama_file_aplikasi.py dengan nama file Python utama Anda, misal: app.py)i
+streamlit run GUI_SupplyChain_Test.py
 
 Aplikasi akan otomatis terbuka di browser Anda.
